@@ -6,6 +6,7 @@
 </head>
 <body>
   <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+  <p>Use the sliders and colour pickers below to edit the image.</p>
 
   <div class="controls">
     <label for="spacing">Spacing:</label>
@@ -21,6 +22,22 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    :root {
+      --base: #FFC153;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background-color: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
+
 
     /*
       misc styles, nothing to do with CSS variables
@@ -35,6 +52,10 @@
       font-size: 50px;
     }
 
+    p {
+      font-size: 20px;
+    }
+
     .controls {
       margin-bottom: 50px;
     }
@@ -45,7 +66,19 @@
   </style>
 
   <script>
-  </script>
+  const inputs = document.querySelectorAll('.controls input')
+
+function handleUpdate() {
+  const suffix = this.dataset.sizing || ''
+  document.documentElement.style.setProperty(
+    `--${this.name}`,
+    this.value + suffix,
+  )
+}
+
+inputs.forEach(input => input.addEventListener('change', handleUpdate))
+inputs.forEach(input => input.addEventListener('mousemove', handleUpdate))
+</script>
 
 </body>
 </html>
