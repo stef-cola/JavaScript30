@@ -51,6 +51,10 @@
       border-left: 1px solid #D1E2FF;
     }
 
+    #clear {
+      margin: 10px
+    }
+
 
   </style>
    <!--
@@ -60,6 +64,7 @@
 
   -->
   <div class="inbox">
+    <input id="clear" type="button" name="clear" value="clear">
     <div class="item">
       <input type="checkbox">
       <p>This is an inbox layout.</p>
@@ -99,6 +104,28 @@
   </div>
 
 <script>
+const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]')
+
+function handleCheck(e) {
+  let inBetween = false
+  if (e.shiftKey && this.checked) {
+    checkboxes.forEach(checkbox => {
+      if (checkbox === this || checkbox === lastChecked)
+      inBetween = !inBetween
+      if (inBetween){
+        checkbox.checked = true
+      }
+  })
+  }
+  lastChecked = this
+}
+
+function handleClear(e) {
+  checkboxes.forEach(checkbox => checkbox.checked = false)
+}
+
+checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck))
+document.getElementById('clear').addEventListener('click', handleClear)
 </script>
 </body>
 </html>
