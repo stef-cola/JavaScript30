@@ -35,6 +35,30 @@
   </style>
 
 <script>
+const hero = document.querySelector('.hero')
+const text = hero.querySelector('h1')
+const movement = 100
+
+function shadow(e) {
+  const { offsetWidth: width, offsetHeight: height } = hero
+  let { offsetX: x, offsetY: y } = e
+
+  if (this !== e.target) {
+    x = x + e.target.offsetLeft
+    y = y + e.target.offsetTop
+  }
+  //calculate the maximum movements that we want to happen (total set above)
+  const xMovement = Math.round((x / width * movement) - (movement / 2))
+  const yMovement = Math.round((y / width * movement) - (movement / 2))
+
+  text.style.textShadow = `
+    ${xMovement}px ${yMovement}px 0 rgba(255, 0, 255, 0.7),
+    ${xMovement * -1}px ${yMovement}px 0 rgba(0, 255, 255, 0.7),
+    ${xMovement}px ${yMovement * -1}px 0 rgba(0, 255, 0, 0.7),
+    ${xMovement * -1}px ${yMovement * -1}px 0 rgba(0, 0, 255, 0.7)`
+}
+
+hero.addEventListener('mousemove', shadow)
 </script>
 </body>
 </html>
