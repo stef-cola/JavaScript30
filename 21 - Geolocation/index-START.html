@@ -57,7 +57,24 @@
     }
     /*Compass: https://thenounproject.com/search/?q=compass&i=592352*/
   </style>
-  <script>
-  </script>
+<script>
+const arrow = document.querySelector('.arrow')
+const speed = document.querySelector('.speed-value')
+
+navigator.geolocation.watchPosition(
+  data => {
+    //If we have the users speed then update the speed shown
+    data.coords.speed ? (speed.textContent = data.coords.speed) : false
+    //Rotate the arrow based on the datas heading
+    arrow.style.transform = `rotate(${data.coords.heading}deg)`
+  },
+  err => {
+    console.log(err)
+    alert("Hey, you haven't allowed us access to your location.")
+  },
+)
+</script>
 </body>
 </html>
+
+﻿
